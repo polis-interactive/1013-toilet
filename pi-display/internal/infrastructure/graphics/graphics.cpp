@@ -292,9 +292,10 @@ namespace infrastructure {
                 }
             );
 
+            glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
             const float ration = _width / (float) _height;
             glfwShowWindow(_window);
-            glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
             /* setup output */
 

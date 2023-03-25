@@ -36,7 +36,7 @@ struct Config:
         return 6969;
     };
     [[nodiscard]] std::chrono::seconds get_websocket_connection_timeout() const final {
-        return 10s;
+        return 5s;
     };
     [[nodiscard]] std::chrono::milliseconds get_websocket_rw_timeout() const final {
         return 3s;
