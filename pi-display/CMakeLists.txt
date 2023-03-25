@@ -19,14 +19,13 @@ set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall")
 
 SET(TOILET_PLATFORM "BROOSE_LINUX_LAPTOP" CACHE STRING "Sets up the build env")
 
-# pre-project cmake files
-include(cmake/platform.cmake)
-
 project (
     TolietPiDisplay
     VERSION 1.0
     LANGUAGES CXX
 )
+
+include(cmake/platform.cmake)
 
 set(root_dir ${CMAKE_CURRENT_LIST_DIR})
 set(internal_dir ${root_dir}/internal)
