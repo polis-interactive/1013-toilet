@@ -13,6 +13,7 @@ int main() {
 
     const Config conf{};
     auto service = Service::Create(conf);
+    service->Start();
 
     bool exit = false;
 
