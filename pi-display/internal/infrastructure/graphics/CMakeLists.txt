@@ -1,10 +1,15 @@
 cmake_minimum_required(VERSION 3.18)
 
-set(GLAD_DIR ${third_party_dir}/glad)
+set(glad_dir ${third_party_dir}/glad)
+include_directories(${glad_dir}/include)
 
-set(SOURCES graphics.cpp ${GLAD_DIR}/src/glad.c ${GLAD_DIR}/src/glad_egl.c)
+set(SOURCES graphics.cpp ${glad_dir}/src/glad.c ${glad_dir}/src/glad_egl.c)
 set(TARGET_LIBS pthread ${GLFW3_LINK_LIBRARIES})
 
-add_library(toilet_graphics STATIC ${SOURCES})
+if(NOT TOILET_PLATFORM STREQUAL RPI)
+    set(TARGET_LIBS ${TARGET_LIBS} X11)
+endif()
+
+add_library(toilet_graphics ${SOURCES})
 target_link_libraries(toilet_graphics PRIVATE ${TARGET_LIBS})
 
