@@ -372,8 +372,8 @@ namespace infrastructure {
                         glBindVertexArray(VAO);
                         glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
                     }
-                    EGLBoolean success [[maybe_unused]] = eglSwapBuffers(egl_display, egl_surface);
                 }
+                EGLBoolean success [[maybe_unused]] = eglSwapBuffers(egl_display, egl_surface);
 
             }
 
