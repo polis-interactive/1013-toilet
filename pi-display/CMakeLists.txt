@@ -30,11 +30,19 @@ include(cmake/platform.cmake)
 set(root_dir ${CMAKE_CURRENT_LIST_DIR})
 set(internal_dir ${root_dir}/internal)
 set(third_party_dir ${root_dir}/third_party)
+set(glad_dir ${third_party_dir}/glad)
 
 include_directories(${internal_dir})
+include_directories(${glad_dir}/include)
 
 add_subdirectory(${internal_dir}/infrastructure/camera)
 add_subdirectory(${internal_dir}/infrastructure/websocket)
 add_subdirectory(${internal_dir}/infrastructure/graphics)
+
+add_executable(
+    toilet
+        ${root_dir}/main.cpp
+)
+target_link_libraries(toilet PRIVATE pthread toilet_camera toilet_graphics toilet_websocket)
 
 add_subdirectory(test)

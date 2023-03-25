@@ -33,7 +33,7 @@ namespace infrastructure {
 
     class WebsocketManager {
     public:
-        virtual void PostWsMessage(DisplayMessageType message_type, std::shared_ptr<void>&& buffer) = 0;
+        virtual void PostMessage(DisplayMessageType message_type, std::shared_ptr<void>&& buffer) = 0;
     };
 
 class Websocket: public std::enable_shared_from_this<Websocket>{

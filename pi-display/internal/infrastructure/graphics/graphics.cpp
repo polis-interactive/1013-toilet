@@ -191,12 +191,19 @@ namespace infrastructure {
         graphics_thread = std::make_unique<std::jthread>(std::bind_front(&Graphics::run, shared_from_this()));
     }
     void Graphics::Stop() {
+        _is_ready = false;
         if (graphics_thread != nullptr) {
             if (graphics_thread->joinable()) {
                 graphics_thread->request_stop();
                 graphics_thread->join();
             }
             graphics_thread = nullptr;
+        }
+        {
+            std::unique_lock<std::mutex> lock(_image_mutex);
+            while (!_image_queue.empty()) {
+                _image_queue.pop();
+            }
         }
     }
     void Graphics::PostToiletConnected(const bool toilet_is_connected) {

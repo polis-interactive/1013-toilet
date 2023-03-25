@@ -24,7 +24,7 @@ namespace infrastructure {
         if (_is_stopped) {
             _is_stopped = false;
             startConnection(true);
-            _manager->PostWsMessage(DisplayMessageType::WEBSOCKET_DISCONNECTED, nullptr);
+            _manager->PostMessage(DisplayMessageType::WEBSOCKET_DISCONNECTED, nullptr);
         }
     }
 
@@ -97,7 +97,7 @@ namespace infrastructure {
             return;
         }
         _is_connected = true;
-        _manager->PostWsMessage(DisplayMessageType::WEBSOCKET_CONNECTED, nullptr);
+        _manager->PostMessage(DisplayMessageType::WEBSOCKET_CONNECTED, nullptr);
         std::cout << "Websocket connecting; starting write read loop" << std::endl;
         write(ec);
     }
@@ -164,13 +164,13 @@ namespace infrastructure {
             auto message_ptr = static_cast<WebsocketMessage *>(ptr);
             delete message_ptr;
         });
-        _manager->PostWsMessage(DisplayMessageType::WEBSOCKET_MESSAGE, std::move(message_ptr));
+        _manager->PostMessage(DisplayMessageType::WEBSOCKET_MESSAGE, std::move(message_ptr));
         // _timer.async_wait(std::bind_front(&Websocket::write, shared_from_this()));
         write(ec);
     }
 
     void Websocket::disconnect(beast::error_code ec) {
-        _manager->PostWsMessage(DisplayMessageType::WEBSOCKET_DISCONNECTED, nullptr);
+        _manager->PostMessage(DisplayMessageType::WEBSOCKET_DISCONNECTED, nullptr);
         _is_connected = false;
         auto self(shared_from_this());
         _ws.async_close(

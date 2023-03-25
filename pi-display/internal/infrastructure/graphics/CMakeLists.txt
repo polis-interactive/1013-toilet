@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.18)
 
 set(GLAD_DIR ${third_party_dir}/glad)
 
-include_directories(include ${GLAD_DIR}/include)
 set(SOURCES graphics.cpp ${GLAD_DIR}/src/glad.c ${GLAD_DIR}/src/glad_egl.c)
 set(TARGET_LIBS pthread ${GLFW3_LINK_LIBRARIES})
 

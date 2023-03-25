@@ -38,7 +38,7 @@ public:
     explicit TestWebsocketManager(WebsocketCallback callback):
         _callback(std::move(callback))
     {}
-    void PostWsMessage(DisplayMessageType message_type, std::shared_ptr<void>&& buffer) {
+    void PostMessage(DisplayMessageType message_type, std::shared_ptr<void>&& buffer) override {
         _callback(message_type, std::move(buffer));
     };
 private:

@@ -32,6 +32,11 @@ namespace infrastructure {
 
     class Camera : public std::enable_shared_from_this<Camera> {
     public:
+        static std::shared_ptr<Camera> Create(
+                const CameraConfig &config, std::shared_ptr<InternalCameraManager> manager
+        ) {
+            return std::make_shared<Camera>(config, std::move(manager));
+        }
         Camera(const CameraConfig &config, std::shared_ptr<InternalCameraManager> manager):
             _manager(std::move(manager))
         {
