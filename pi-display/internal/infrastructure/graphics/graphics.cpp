@@ -243,6 +243,8 @@ namespace infrastructure {
                 continue;
             }
 
+            glfwMakeContextCurrent(_window);
+
             /* load GLES */
             int version = gladLoadGLES2Loader((GLADloadproc) glfwGetProcAddress);
             if (version == 0) {
