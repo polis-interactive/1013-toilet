@@ -25,14 +25,14 @@ namespace infrastructure {
         [[nodiscard]] virtual int get_camera_buffer_count() const = 0;
     };
 
-    class CameraManager {
+    class InternalCameraManager {
     public:
         virtual void PostMessage(DisplayMessageType message_type, std::shared_ptr<void>&& buffer) = 0;
     };
 
     class Camera : public std::enable_shared_from_this<Camera> {
     public:
-        Camera(const CameraConfig &config, std::shared_ptr<CameraManager> manager):
+        Camera(const CameraConfig &config, std::shared_ptr<InternalCameraManager> manager):
             _manager(std::move(manager))
         {
             createCamera(config);
@@ -59,7 +59,7 @@ namespace infrastructure {
         void closeCamera();
         void teardownCamera();
 
-        std::shared_ptr<CameraManager> _manager;
+        std::shared_ptr<InternalCameraManager> _manager;
 
         std::unique_ptr<libcamera::CameraManager> _camera_manager;
         std::shared_ptr<libcamera::Camera> _camera;
