@@ -25,7 +25,7 @@ struct Config:
         return 30;
     };
     [[nodiscard]] int get_camera_buffer_count() const final {
-        return 6;
+        return 20;
     };
 
     /* websocket */
