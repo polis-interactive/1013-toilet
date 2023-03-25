@@ -347,7 +347,7 @@ namespace infrastructure {
             std::cout << "At graphics loop" << std::endl;
             _is_ready = true;
 
-            EglBuffer egl_buffer;
+            EglBuffer *egl_buffer = nullptr;
             while (!glfwWindowShouldClose(_window) && !st.stop_requested()) {
                 std::shared_ptr<CameraBuffer> data = nullptr;
                 {
@@ -360,15 +360,18 @@ namespace infrastructure {
                 glClearColor(0, 0, 0, 1.0);
                 glClear(GL_COLOR_BUFFER_BIT);
                 if (data) {
-                    egl_buffer = _buffers.at(data->GetFd());
-                    if (egl_buffer.fd == -1) {
-                        makeBuffer(data->GetFd(), data->GetSize(), egl_buffer);
+                    EglBuffer &tmp_egl_buffer = _buffers[data->GetFd()];
+                    if (tmp_egl_buffer.fd == -1) {
+                        makeBuffer(data->GetFd(), data->GetSize(), tmp_egl_buffer);
                     }
+                    egl_buffer = &tmp_egl_buffer;
                 }
                 if (!_toilet_is_connected || _person_detected) {
-                    glBindTexture(GL_TEXTURE_EXTERNAL_OES, egl_buffer.texture);
-                    glBindVertexArray(VAO);
-                    glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+                    if (egl_buffer) {
+                        glBindTexture(GL_TEXTURE_EXTERNAL_OES, egl_buffer->texture);
+                        glBindVertexArray(VAO);
+                        glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+                    }
                     EGLBoolean success [[maybe_unused]] = eglSwapBuffers(egl_display, egl_surface);
                 }
 
