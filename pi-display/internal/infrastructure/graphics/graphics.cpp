@@ -243,6 +243,7 @@ namespace infrastructure {
                 continue;
             }
 
+            glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
             glfwMakeContextCurrent(_window);
 
             /* load GLES */
@@ -291,8 +292,6 @@ namespace infrastructure {
                     }
                 }
             );
-
-            glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
             const float ration = _width / (float) _height;
             glfwShowWindow(_window);
