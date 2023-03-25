@@ -11,6 +11,9 @@ void signal_handler(int signal) { shutdown_handler(signal); }
 
 int main() {
 
+    freopen( "output.txt", "w", stdout );
+    std::cout << "Starting glfw thread" << std::endl;
+
     const Config conf{};
     auto service = Service::Create(conf);
     service->Start();
