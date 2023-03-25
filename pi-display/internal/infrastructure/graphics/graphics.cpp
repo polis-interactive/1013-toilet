@@ -292,7 +292,7 @@ namespace infrastructure {
                 }
             );
 
-            glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
             const float ration = _width / (float) _height;
             glfwShowWindow(_window);
@@ -349,6 +349,7 @@ namespace infrastructure {
 
             EglBuffer *egl_buffer = nullptr;
             while (!glfwWindowShouldClose(_window) && !st.stop_requested()) {
+                glfwPollEvents();
                 std::shared_ptr<CameraBuffer> data = nullptr;
                 {
                     std::unique_lock<std::mutex> lock(_image_mutex);
