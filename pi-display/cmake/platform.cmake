@@ -11,7 +11,7 @@ else()
         TOILET_PLATFORM STREQUAL RPI
     )
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPLATFORM_RPI")
-        set(BOOST_ROOT "${TARGET_ROOTFS}/home/pi/build/boost_1_81_0")
+        set(BOOST_ROOT "/home/pi/build/boost_1_81_0")
     else()
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPLATFORM_BROOSE")
         set(BOOST_ROOT "/usr/local/lib/boost_1_81_0")
